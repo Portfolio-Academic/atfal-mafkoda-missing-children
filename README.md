@@ -1,5 +1,6 @@
 ## Client Introduction
 Atfal Mafkoda (translated as "Missing Children") is a community-based project in Egypt dedicated to finding missing children and adults. Many of these individuals have been missing for years, some abducted and subjected to human trafficking and child abuse. The project primarily operates through its Facebook page, where administrators post photos and known features of missing persons. Community members respond with potential leads, and volunteers follow up to verify identities and reunite families. Despite seeming simplistic, this approach has successfully returned over 3,000 missing persons to date.
+[Learn more about Atfal Mafkoda](https://atfalmafkoda.com/en/home).
 
 ## Problem Statement
 The challenge arises when individuals attempt to manually search for their missing loved ones within large databases of unknown or 'John Doe' individuals. This process is time-consuming, inefficient, and often overwhelming due to the volume of data.
