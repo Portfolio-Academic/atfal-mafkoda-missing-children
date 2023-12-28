@@ -1,17 +1,32 @@
+## Client Introduction
+Atfal Mafkoda (translated as "Missing Children") is a community-based project in Egypt dedicated to finding missing children and adults. Many of these individuals have been missing for years, some abducted and subjected to human trafficking and child abuse. The project primarily operates through its Facebook page, where administrators post photos and known features of missing persons. Community members respond with potential leads, and volunteers follow up to verify identities and reunite families. Despite seeming simplistic, this approach has successfully returned over 3,000 missing persons to date.
 
-# Flow Documentation
-This document provides an overview of the key components in our ML Pipeline. Please refer to each file for in depth explanation.
+## Problem Statement
+The challenge arises when individuals attempt to manually search for their missing loved ones within large databases of unknown or 'John Doe' individuals. This process is time-consuming, inefficient, and often overwhelming due to the volume of data.
+
+## ML Objective
+The objective is to design and implement a machine learning pipeline that effectively and efficiently narrows down the search for missing individuals within a vast and diverse database. The goal is to provide a smaller, more manageable pool of potential matches based on similarities, thereby streamlining the identification process and assisting in the timely reunion of families.
+
+## Solution Overview
+The system employs facial detection and matching techniques to process image data sourced from APIs in a JSON format, addressing a wide and varied range of cases. It utilizes MTCNN for precise facial detection and VGG-Face within the DeepFace framework for effectively matching missing individuals with images from extensive, unlabeled databases. The performance of this system is rigorously evaluated using Euclidean_l2 and Cosine metrics to ensure high precision in pinpointing potential matches. Our performance analysis indicates that using the cosine metric the system can effectively narrow down the search to a pool of 50 images, within which there is a high likelihood of finding an exact match among the initial selections. Deployed through Streamlit, the solution provides an interactive, user-friendly interface that greatly accelerates the identification and reunion process. By leveraging advanced machine learning and data processing techniques, this project significantly contributes to a critical social cause, demonstrating the impactful potential of technology.
+
+## DeepFace 
+Let's explore how DeepFace functions with an example. Imagine we have two image directories: 'missing' (images provided by parents or relatives) and 'johndoe' (images of unidentified individuals). DeepFace begins with the 'johndoe' directory, utilizing a detector backend such as MTCNN, OpenCV, etc., from its range of options, from which we can select one. It then generates a pickle file with the embeddings for these images in the 'johndoe' directory.
+
+Next, DeepFace processes the 'missing' directory, creating embeddings for each image using the selected detector backend and then compares them to the 'johndoe' embeddings. For this matching phase, various models available in DeepFace, including VGG-Face, Facenet, etc., can be employed along with different metrics such as Euclidean_l2, cosine, and more. Consequently, for each 'missing' image, DeepFace compiles a pool of potential matches from the 'johndoe' directory.
+
+[Learn more about DeepFace](https://github.com/serengil/deepface).
+
+The subsequent sections provide a structured outline of the workflow, detailing the specific functions and processes contained within each directory. This breakdown delivers a technical overview of the system's architecture and the operational mechanisms employed throughout the project.
 
 ## Key Components
 <img src="flow_chart.png" alt="Flow Chart" width="750"/>
 
 ## data_downloader.ipynb
-
 This notebook automates the downloading and organizing of images based on JSON Facebook posts data. Key features include:
 - **Downloading Images**: It downloads images from URLs found in a JSON file and saves them in specified directories.
 - **Organizing Data**: Images are organized by case status and IDs into separate folders.
 - **Error Logging**: Missing data from the JSON file is logged into a CSV file for review.
-
 
 ## data_explore.ipynb   
 The `data_explore` directory includes the `data_explore.ipynb` notebook, which specializes in analyzing and visualizing the given Facebook posts data. Key components and outputs of the notebook are outlined below:
@@ -30,7 +45,6 @@ The `data_explore` directory includes the `data_explore.ipynb` notebook, which s
 
 
 ## data_organizer.ipynb
-
 - **Input Directory**: Accepts the directory containing image data obtained after downloading using `data_downloader.ipynb`, along with the specified output directory for organized images.
 - **Selective Extraction**: The script processes only specified folders within each image set, such as 'enhanced' images, based on user input.
 
@@ -45,7 +59,6 @@ This organized structure greatly simplifies the management and access of image c
 
 
 ## face_detector_results
-
 This directory contains outcomes from the `face_detector.ipynb` notebook, which focuses on facial detection—a crucial step before proceeding to `face_matching.ipynb`. 
 Key elements and functionalities :
 
@@ -69,7 +82,6 @@ Key elements and functionalities :
 
 
 ## inputs_outputs
-
 This directory contains essential files used in and generated by the project's notebooks. This includes a JSON file(response_1699422658272.json) with Facebook posts data, which serves as input for `data_downloader.ipynb`, the `jsontocsv.csv` file generated by `data_explore.ipynb`, and two output CSV files – `matches_cosine.csv` and `matches_euclideanl2.csv` – produced using various metrics in `face_matching.ipynb`.
 
 ### Summary of `face_matching.ipynb`
@@ -90,18 +102,14 @@ The `face_matching.ipynb` notebook plays a vital role in performing facial match
 These features make the `face_matching.ipynb` notebook a comprehensive tool for facial recognition tasks, offering versatility and precision in identifying unknown individuals in various scenarios.
 
 **Note on CSV File Structure**
-
 - **`missing_filename` Column**: This column contains the filenames of the images for which matches are being sought. These images typically represent missing individuals or subjects of interest.
 
 - **`unknowns_matched_filenames` Column**: This column lists the filenames from the pool of resulted matches from specific interest like johndoe individuals. These are the images identified as potential matches for the filenames listed in the `missing_filename` column.
 
-
 ## deployment
 This directory includes all the Streamlit deployment files.
 
-
 ## experiment_results_analysis
-
 This directory contains all the essential files and notebooks related to the results and analysis of the experiment. Below is an overview of each file:
 
 - **exp_result_analysis_cosine.ipynb** and **exp_result_analysis_euclidean_l2.ipynb**: Jupyter notebooks dedicated to analyzing the face matching results obtained with the Cosine and Euclidean L2 metrics, respectively. They also include data processing, visualization, and statistical analysis tailored to each specific metric.
@@ -111,9 +119,7 @@ This directory contains all the essential files and notebooks related to the res
 - **aggregated_data_cosine.csv** and **aggregated_data_euclideanl2.csv**: Generated by `exp_result_analysis_cosine.ipynb` and `exp_result_analysis_euclidean_l2.ipynb` respectively, these files result from the data aggregation process.
 
 **Note on `exp_result_analysis_cosine.ipynb` and `exp_result_analysis_euclidean_l2.ipynb` files**
-
 - The term ‘Relevant matches’ refers to the faces that are correctly matched in the notebooks `exp_result_analysis_cosine.ipynb` and `exp_result_analysis_euclidean_l2.ipynb`. These matches are considered accurate or 'relevant' based on the specific metrics (Cosine or Euclidean L2) used in these notebooks.
-
 
 ## Experiment Overview
 
